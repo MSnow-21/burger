@@ -15,6 +15,21 @@ const questionMarks = (num) => {
 
 //Helper function for updateOne function
 
+const objToSql = (ob) => {
+    const arr = [];
+
+    for(const key in ob){
+        let value = ob[key];
+        if(Object.hasOwnProperty.call(ob,key)){
+            if(typeof value === 'string' && value.indexOf(' ') >= 0){
+                value = `'${value}'`;
+            }
+            abb.push(`${key}=${value}`);
+        }
+    }
+    return arr.toString();
+};
+
 const orm = {
     selectAll(tableInput, cb){
         const queryString = `Select * FROM ${tableInput};`;
