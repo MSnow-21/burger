@@ -1,4 +1,3 @@
-const { insertOne } = require('../models/burger.js');
 const connection = require('./connection.js');
 
 const orm = {
@@ -11,12 +10,13 @@ const orm = {
             cb(result);
         });
     },
-    insertOne(table, cols, vals, cb){
-        const queryString = `INSERT INTO ${table}`;
+    // insertOne(vals, cb){
+    //     //
+    //     const queryString = `INSERT INTO burgers (burger_name,devoured) VALUES ${vals}`;
 
-        
 
-    }
+
+    //}
 
 
 
@@ -24,7 +24,7 @@ const orm = {
 }
 
 //selectAll();
-insertOne();
-updateOne();
+// insertOne();
+// updateOne();
 
 //module.exports = orm
