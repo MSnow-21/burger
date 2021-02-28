@@ -2,6 +2,8 @@ const connection = require('./connection.js');
 
 //Creating helper functions for insert methods like class activities
 
+//Helper function for insertOne function
+
 const questionMarks = (num) => {
     const arr = [];
 
@@ -10,6 +12,8 @@ const questionMarks = (num) => {
     }
     return arr.toString();
 }
+
+//Helper function for updateOne function
 
 const orm = {
     selectAll(tableInput, cb){
@@ -22,14 +26,14 @@ const orm = {
         });
     },
     insertOne(table,cols,vals,cb){
-        let queryString = 'INSERT INTO ${table}';
+        let queryString = `INSERT INTO ${table}`;
 
         queryString += ' (';
         queryString += cols.toString();
         queryString += ') ';
         queryString += 'VALUES (';
         queryString += questionMarks(val.length);
-        queryString += ') ';
+        queryString += ') '; 
 
         console.log(queryString);
 
@@ -42,21 +46,23 @@ const orm = {
         cb(result);
     });
     },
-    // insertOne(vals, cb){
-    //     //
-    //     const queryString = `INSERT INTO burgers (burger_name,devoured) VALUES ${vals}`;
+    updateOne(table,objColVals, condition, cb){
+        let queryString = `Update ${table}`;
 
+        queryString += ' SET ';
+        queryString += objToSql(objColVals);
+        queryString += ' WHERE ';
+        queryString += condition;
 
+        console.log(queryString);
 
-    //}
-
-
-
-
-}
-
-//selectAll();
-// insertOne();
-// updateOne();
+        connection.query(queryString, (err, result) => {
+            if (err){
+                throw err;
+            }
+            cb(result);
+        });
+    },
+};
 
 module.exports = orm
