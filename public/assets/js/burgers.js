@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', (event)=> {
                         'Content-Type': 'application/json',
                     },
 
-                    body: JSON.stringify(newBurgerState);
+                    body: JSON.stringify(newBurgerState),
                 }).then((response) => {
                     if(response.ok){
                         console.log(`changed sleep to: ${newDevoured}`);
