@@ -7,8 +7,31 @@
 
 </div>
 
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <ul>
+                {{#each burgers}}
+                {{#unless devoured}}
+                {{> burgers/burger-block burger=true}}
+                {{/unless}}
+                {{/each}}
+            </ul>
+        </div>
 
-<ul>
+        <div class="col-md-6">
+            <ul>
+                {{#each burgers}}
+                {{#if devoured}}
+                {{> burgers/burger-block burger=false}}
+                {{/if}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{{!-- <ul>
     {{#each burgers}}
     {{#unless devoured}}
     {{> burgers/burger-block burger=true}}
@@ -23,6 +46,8 @@
     {{/if}}
     {{/each}}
 </ul>
+ --}}
+
 
 <h2>Add a Burger</h2>
 <form id="create-form">
@@ -36,6 +61,6 @@
         <input type="radio" name="devoured" value="1" checked id="devoured">Devoured!<br>
         <input type="radio" name="devoured" value="0" id="notdevoured">Not Devoured
     </div>
-    <button type="Submit">Add Burger</button>
+    <button type="submit">Add Burger</button>
     <h2>Enter a burger you want to eat and click the Submit button!</h2>
 </form>

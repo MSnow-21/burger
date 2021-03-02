@@ -47,25 +47,25 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if(createBurgerButton){
         createBurgerButton.addEventListener('submit', (e) => {
             e.preventDefault();
-        })
-
-        const newChoice= {
-            burger_name: document.getElementById('bu').value.trim(),
-            devoured: document.getElementById('devoured').checked,//remove later
-        };
-
-        fetch('/api/burgers', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newChoice),
-        }).then(() => {
-            document.getElementById('ca').value = '';
-
-            console.log('Created a new burger!');
-            location.reload();
+            
+            const newChoice = {
+                burger_name: document.getElementById('bu').value.trim(),
+                devoured: document.getElementById('devoured').checked,
+            };
+            
+            fetch('/api/burgers', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newChoice),
+            
+            }).then(() => {
+                document.getElementById('bu').value = '';
+                console.log('Created a new burger!');
+                location.reload();
+            })
         });
     };
 

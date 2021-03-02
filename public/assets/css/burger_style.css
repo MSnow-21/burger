@@ -2,3 +2,18 @@ body{
     background-color: lightblue;
 }
 
+h1,h2{
+    text-align: center;
+}
+
+.change-burger{
+    background-color: chartreuse;
+}
+
+.form-group{
+    text-align: center;
+}
+
+.centerbutton{
+    margin: 70%;
+}
