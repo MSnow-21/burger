@@ -1,21 +1,22 @@
-document.addEventListener('DOMContentLoaded', (event)=> {
-    if(event){
+document.addEventListener('DOMContentLoaded', (event) => {
+    if (event) {
         console.log('DOM loaded');
     }
 
     //Devouring the burger initial code
 
-    const devourBurgerButton = document.getElementById('.devoured-burger');
+    const devourBurgerButton = document.querySelectorAll('.change-burger');
 
     if(devourBurgerButton){
         devourBurgerButton.forEach((button) => {
-            button.addEventListener('click', (event) => {
+            button.addEventListener('click', (e) => {
                 console.log('test');
 
-                const id = event.target.getAttribute('data-devourburger');
+                const id = e.target.getAttribute('data-id');
+                const newBurger = e.target.getAttribute('data-newburger');
 
                 const newBurgerState = {
-                    devoured: newDevoured,
+                    devoured: newBurger,
                 };
 
                 fetch(`api/burgers/${id}`, {
@@ -28,7 +29,7 @@ document.addEventListener('DOMContentLoaded', (event)=> {
                     body: JSON.stringify(newBurgerState),
                 }).then((response) => {
                     if(response.ok){
-                        console.log(`changed sleep to: ${newDevoured}`);
+                        console.log(`changed devoured to: ${newBurger}`);
                         location.reload('/');
                     }else{
                         alert('something went wrong!')
@@ -41,15 +42,16 @@ document.addEventListener('DOMContentLoaded', (event)=> {
 
     //Creating the burger initial code
 
-    const createBurgerButton = document.getElementById('burger-form');
+    const createBurgerButton = document.getElementById('create-form');
 
     if(createBurgerButton){
-        createBurgerButton.addEventListener('submit', (event) => {
-            event.preventDefault();
+        createBurgerButton.addEventListener('submit', (e) => {
+            e.preventDefault();
         })
 
-        const newBurgerName = {
-            name: document.getElementById('bur').value.trim(),
+        const newChoice= {
+            burger_name: document.getElementById('bu').value.trim(),
+            devoured: document.getElementById('devoured').checked,//remove later
         };
 
         fetch('/api/burgers', {
@@ -58,8 +60,9 @@ document.addEventListener('DOMContentLoaded', (event)=> {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
             },
-        }).then(()=> {
-            document.getElementById('bur').value = '';
+            body: JSON.stringify(newChoice),
+        }).then(() => {
+            document.getElementById('ca').value = '';
 
             console.log('Created a new burger!');
             location.reload();

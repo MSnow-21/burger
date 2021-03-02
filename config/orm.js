@@ -4,10 +4,10 @@ const connection = require('./connection.js');
 
 //Helper function for insertOne function
 
-const questionMarks = (num) => {
+const printQuestionMarks = (num) => {
     const arr = [];
 
-    for (let i =0; i < num; i++){
+    for (let i = 0; i < num; i++){
         arr.push('?');
     }
     return arr.toString();
@@ -24,7 +24,7 @@ const objToSql = (ob) => {
             if(typeof value === 'string' && value.indexOf(' ') >= 0){
                 value = `'${value}'`;
             }
-            abb.push(`${key}=${value}`);
+            arr.push(`${key}=${value}`);
         }
     }
     return arr.toString();
@@ -32,7 +32,7 @@ const objToSql = (ob) => {
 
 const orm = {
     selectAll(tableInput, cb){
-        const queryString = `Select * FROM ${tableInput};`;
+        const queryString = `SELECT * FROM ${tableInput};`;
         connection.query(queryString, (err, result) => {
             if (err) {
                 throw err;
@@ -40,29 +40,27 @@ const orm = {
             cb(result);
         });
     },
-    insertOne(table,cols,vals,cb){
+    insertOne(table, cols, vals, cb){
         let queryString = `INSERT INTO ${table}`;
 
         queryString += ' (';
         queryString += cols.toString();
         queryString += ') ';
         queryString += 'VALUES (';
-        queryString += questionMarks(val.length);
+        queryString += printQuestionMarks(vals.length);
         queryString += ') '; 
 
         console.log(queryString);
 
-        connection.query(queryString);
-
         connection.query(queryString, vals, (err, result) => {
-            if (err) {;
+            if (err) {
             throw err;
         }
         cb(result);
     });
     },
     updateOne(table,objColVals, condition, cb){
-        let queryString = `Update ${table}`;
+        let queryString = `UPDATE ${table}`;
 
         queryString += ' SET ';
         queryString += objToSql(objColVals);
