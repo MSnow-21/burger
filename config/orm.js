@@ -57,7 +57,7 @@ const orm = {
             throw err;
         }
         cb(result);
-    });
+        });
     },
     updateOne(table,objColVals, condition, cb){
         let queryString = `UPDATE ${table}`;

@@ -21,6 +21,9 @@ img{
     text-align: center;
 }
 
-.centerbutton{
-    margin: 70%;
+
+.centeredbutton{
+    display: flex;
+    justify-content:center;
+    align-items: center;
 }
